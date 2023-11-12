@@ -37,6 +37,9 @@ resource "azurerm_linux_virtual_machine" "default" {
 
   custom_data = filebase64("${path.module}/cloud-init.sh")
 
+  # Additional encryption
+  encryption_at_host_enabled = var.encryption_at_host_enabled
+
   identity {
     type = "SystemAssigned"
   }
@@ -50,6 +53,9 @@ resource "azurerm_linux_virtual_machine" "default" {
     name                 = "osdisk-linux-${var.workload}"
     caching              = "ReadOnly"
     storage_account_type = "Standard_LRS"
+
+    # Azure Disk Encryption (ADE)
+    disk_encryption_set_id = var.disk_encryption_set_id
   }
 
   source_image_reference {

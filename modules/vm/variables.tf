@@ -18,3 +18,10 @@ variable "size" {
   type = string
 }
 
+variable "disk_encryption_set_id" {
+  type = string
+}
+
+variable "encryption_at_host_enabled" {
+  type = bool
+}
