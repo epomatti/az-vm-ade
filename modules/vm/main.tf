@@ -52,7 +52,7 @@ resource "azurerm_linux_virtual_machine" "default" {
   os_disk {
     name                 = "osdisk-linux-${var.workload}"
     caching              = "ReadOnly"
-    storage_account_type = "Standard_LRS"
+    storage_account_type = "StandardSSD_LRS"
 
     # Azure Disk Encryption (ADE)
     disk_encryption_set_id = var.disk_encryption_set_id
