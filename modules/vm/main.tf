@@ -37,7 +37,7 @@ resource "azurerm_linux_virtual_machine" "default" {
 
   custom_data = filebase64("${path.module}/cloud-init.sh")
 
-  # Additional encryption
+  # This is NOT compatible with ADE
   encryption_at_host_enabled = var.encryption_at_host_enabled
 
   identity {
