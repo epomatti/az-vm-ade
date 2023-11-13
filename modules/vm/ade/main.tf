@@ -70,7 +70,7 @@ resource "azurerm_virtual_machine_extension" "AzureDiskEncryptionForLinux" {
   virtual_machine_id         = azurerm_linux_virtual_machine.default.id
   publisher                  = "Microsoft.Azure.Security"
   type                       = "AzureDiskEncryptionForLinux"
-  type_handler_version       = "1.1" # Should this be 1.1 or 1.*???
+  type_handler_version       = "1.1" # Should this be 1.4, 1.1 or 1.*???
   auto_upgrade_minor_version = true
 
   settings = jsonencode({
@@ -79,6 +79,7 @@ resource "azurerm_virtual_machine_extension" "AzureDiskEncryptionForLinux" {
     "KeyVaultResourceId" : "${var.keyvault_resource_id}",
     "KeyEncryptionKeyURL" : "${var.keyvault_key_id}",
     "KeyEncryptionAlgorithm" : "RSA-OAEP",
+    "KekVaultResourceId" : "${var.keyvault_resource_id}",
     "VolumeType" : "${var.ade_volume_type}"
   })
 }

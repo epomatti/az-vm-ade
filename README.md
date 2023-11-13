@@ -1,10 +1,10 @@
-# Azure VM + ADE
+# Azure VM Disk Encryption
 
-Azure Virtual Machine implementation with Azure Disk Encryption.
+Azure Virtual Machine disk encryption implementations.
 
 This project will create 3 VMs:
 
-- Customer-Managed Key (CMK)
+- Customer-Managed Key (CMK-SSE)
 - Azure Disk Encryption (ADE)
 - Encryption at Host
 
@@ -24,12 +24,15 @@ terraform init
 terraform apply -auto-approve
 ```
 
+### Customer-Managed Key (CMK-SSE)
+
+Will be created with the Key Vault Key.
+
 ### Azure Disk Encryption (ADE)
 
 Check [the documentation][5] for extension. The extensions installed [does not support auto-update][4].
 
-
-
+Terraform will add the `AzureDiskEncryptionForLinux` extension and ADE will be enabled for the VM.
 
 ### Encryption at Host
 
