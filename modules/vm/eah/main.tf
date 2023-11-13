@@ -1,5 +1,5 @@
 locals {
-  encrypt_type = "ade"
+  encrypt_type = "eah"
 }
 
 resource "azurerm_public_ip" "default" {

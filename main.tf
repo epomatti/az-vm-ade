@@ -40,6 +40,15 @@ module "vm_cmk" {
   disk_encryption_set_id = module.keyvault.disk_encryption_set_id
 }
 
+module "vm_ade" {
+  source              = "./modules/vm/ade"
+  workload            = local.workload
+  resource_group_name = azurerm_resource_group.default.name
+  location            = azurerm_resource_group.default.location
+  subnet_id           = module.vnet.subnet_id
+  size                = var.vm_size
+}
+
 module "vm_eah" {
   source              = "./modules/vm/eah"
   workload            = local.workload
