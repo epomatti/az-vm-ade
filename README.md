@@ -22,17 +22,17 @@ terraform init
 terraform apply -auto-approve
 ```
 
-#### Customer-Managed Key (CMK-SSE)
+### Customer-Managed Key (CMK-SSE)
 
 Will be created with the Key Vault Key.
 
-#### Azure Disk Encryption (ADE)
+### Azure Disk Encryption (ADE)
 
 Check [the documentation][5] for extension. The extensions installed [does not support auto-update][4].
 
 Terraform will add the `AzureDiskEncryptionForLinux` extension and ADE will be enabled for the VM.
 
-#### Encryption at Host
+### Encryption at Host
 
 Encryption at Host is [not supported][3] with ADE and has other restrictions. Check this for production.
 
