@@ -30,8 +30,8 @@ module "keyvault" {
   location = azurerm_resource_group.default.location
 }
 
-module "vm" {
-  source                     = "./modules/vm"
+module "vm_cmk" {
+  source                     = "./modules/vm/cmk"
   workload                   = local.workload
   resource_group_name        = azurerm_resource_group.default.name
   location                   = azurerm_resource_group.default.location
