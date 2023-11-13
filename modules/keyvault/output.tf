@@ -2,8 +2,12 @@ output "id" {
   value = azurerm_key_vault.default.id
 }
 
-output "vault_uri" {
+output "keyvault_uri" {
   value = azurerm_key_vault.default.vault_uri
+}
+
+output "keyvault_resource_id" {
+  value = azurerm_key_vault.default.id
 }
 
 output "keyvault_key_id" {

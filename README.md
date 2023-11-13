@@ -2,6 +2,12 @@
 
 Azure Virtual Machine implementation with Azure Disk Encryption.
 
+This project will create 3 VMs:
+
+- Customer-Managed Key (CMK)
+- Azure Disk Encryption (ADE)
+- Encryption at Host
+
 Create the `.auto.tfvars` configuration file:
 
 ```terraform
@@ -18,15 +24,18 @@ terraform init
 terraform apply -auto-approve
 ```
 
-### ADE
+### Azure Disk Encryption (ADE)
 
-https://github.com/MicrosoftDocs/azure-docs/blob/main/articles/virtual-machines/extensions/azure-disk-enc-linux.md
+Check [the documentation][5] for extension. The extensions installed [does not support auto-update][4].
+
+
+
 
 ### Encryption at Host
 
-Encryption at Host is [not supported][3] with ADE. In case you want to run it, change the variable properties in the code.
+Encryption at Host is [not supported][3] with ADE and has other restrictions. Check this for production.
 
-To run with Encryption at host, [enable the feature][2]:
+Keep in mind that to use Encryption at host, you have to [enable the feature][2] in the subscription:
 
 ```sh
 # Register
@@ -39,6 +48,18 @@ az provider register -n Microsoft.Compute
 az feature show --name EncryptionAtHost --namespace Microsoft.Compute
 ```
 
+---
+
+### Clean-up
+
+Destroy the resources:
+
+```sh
+terraform destroy -auto-approve
+```
+
 [1]: https://learn.microsoft.com/en-us/azure/virtual-machines/linux/disk-encryption-overview#memory-requirements
 [2]: https://learn.microsoft.com/en-us/azure/virtual-machines/disks-enable-host-based-encryption-portal?tabs=azure-cli
 [3]: https://learn.microsoft.com/en-us/azure/virtual-machines/disks-enable-host-based-encryption-portal?tabs=azure-cli#restrictions
+[4]: https://learn.microsoft.com/en-us/azure/virtual-machines/automatic-extension-upgrade
+[5]: https://learn.microsoft.com/en-us/azure/virtual-machines/extensions/azure-disk-enc-linux

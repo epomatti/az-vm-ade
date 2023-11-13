@@ -17,3 +17,19 @@ variable "subnet_id" {
 variable "size" {
   type = string
 }
+
+variable "keyvault_url" {
+  type = string
+}
+
+variable "keyvault_resource_id" {
+  type = string
+}
+
+variable "keyvault_key_id" {
+  type = string
+}
+
+variable "ade_volume_type" {
+  type = string
+}

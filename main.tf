@@ -31,10 +31,11 @@ module "keyvault" {
 }
 
 module "vm_cmk" {
-  source                 = "./modules/vm/cmk"
-  workload               = local.workload
-  resource_group_name    = azurerm_resource_group.default.name
-  location               = azurerm_resource_group.default.location
+  source              = "./modules/vm/cmk"
+  workload            = local.workload
+  resource_group_name = azurerm_resource_group.default.name
+  location            = azurerm_resource_group.default.location
+
   subnet_id              = module.vnet.subnet_id
   size                   = var.vm_size
   disk_encryption_set_id = module.keyvault.disk_encryption_set_id
@@ -45,8 +46,15 @@ module "vm_ade" {
   workload            = local.workload
   resource_group_name = azurerm_resource_group.default.name
   location            = azurerm_resource_group.default.location
-  subnet_id           = module.vnet.subnet_id
-  size                = var.vm_size
+
+  subnet_id = module.vnet.subnet_id
+  size      = var.vm_size
+
+  # ADE Extension parameters
+  keyvault_url         = module.keyvault.keyvault_uri
+  keyvault_resource_id = module.keyvault.keyvault_resource_id
+  keyvault_key_id      = module.keyvault.keyvault_key_id
+  ade_volume_type      = "OS" # Could be All, Data, or OS
 }
 
 module "vm_eah" {
@@ -54,6 +62,7 @@ module "vm_eah" {
   workload            = local.workload
   resource_group_name = azurerm_resource_group.default.name
   location            = azurerm_resource_group.default.location
-  subnet_id           = module.vnet.subnet_id
-  size                = var.vm_size
+
+  subnet_id = module.vnet.subnet_id
+  size      = var.vm_size
 }

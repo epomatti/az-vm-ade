@@ -61,7 +61,24 @@ resource "azurerm_linux_virtual_machine" "default" {
     publisher = "Canonical"
     offer     = "0001-com-ubuntu-server-jammy"
     sku       = "22_04-lts-gen2"
-    # sku       = "22_04-lts-arm64"
-    version = "latest"
+    version   = "latest"
   }
+}
+
+resource "azurerm_virtual_machine_extension" "AzureDiskEncryptionForLinux" {
+  name                       = "AzureDiskEncryptionForLinux"
+  virtual_machine_id         = azurerm_linux_virtual_machine.default.id
+  publisher                  = "Microsoft.Azure.Security"
+  type                       = "AzureDiskEncryptionForLinux"
+  type_handler_version       = "1.1" # Should this be 1.1 or 1.*???
+  auto_upgrade_minor_version = true
+
+  settings = jsonencode({
+    "EncryptionOperation" : "EnableEncryption",
+    "KeyVaultURL" : "${var.keyvault_url}",
+    "KeyVaultResourceId" : "${var.keyvault_resource_id}",
+    "KeyEncryptionKeyURL" : "${var.keyvault_key_id}",
+    "KeyEncryptionAlgorithm" : "RSA-OAEP",
+    "VolumeType" : "${var.ade_volume_type}"
+  })
 }
