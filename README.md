@@ -13,8 +13,6 @@ location = "eastus"
 vm_size  = "Standard_B2ms"
 ```
 
-> ℹ️ Notice that ADE have some few restrictions with VM types and [memory][1] allocated. Check this for production.
-
 Create the infrastructure:
 
 ```sh
@@ -24,13 +22,20 @@ terraform apply -auto-approve
 
 ### Customer-Managed Key (CMK-SSE)
 
-Will be created with the Key Vault Key.
+Encryption will be performed with the Key Vault CMK key that is created.
 
 ### Azure Disk Encryption (ADE)
 
 Check [the documentation][5] for extension. The extensions installed [does not support auto-update][4].
 
+> ℹ️ Notice that ADE have some few restrictions with VM types and [memory][1] allocated. Check this for production.
+
 Terraform will add the `AzureDiskEncryptionForLinux` extension and ADE will be enabled for the VM.
+
+Underlying encryption technology:
+
+- Windows: BitLocker
+- Linux: DM-Crypt + VFAT
 
 ### Encryption at Host
 
