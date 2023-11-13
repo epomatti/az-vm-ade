@@ -1,8 +1,6 @@
 # Azure VM Disk Encryption
 
-Azure Virtual Machine disk encryption implementations.
-
-This project will create 3 VMs with different encryption customizations:
+This project will create three VMs, each with a different encryption customization:
 
 - Customer-Managed Key (CMK-SSE)
 - Azure Disk Encryption (ADE)
