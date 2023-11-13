@@ -5,9 +5,8 @@ Azure Virtual Machine implementation with Azure Disk Encryption.
 Create the `.auto.tfvars` configuration file:
 
 ```terraform
-location                   = "eastus"
-vm_size                    = "Standard_B2ms"
-encryption_at_host_enabled = false
+location = "eastus"
+vm_size  = "Standard_B2ms"
 ```
 
 > ℹ️ Notice that ADE have some few restrictions with VM types and [memory][1] allocated. Check this for production.
@@ -18,6 +17,10 @@ Create the infrastructure:
 terraform init
 terraform apply -auto-approve
 ```
+
+### ADE
+
+https://github.com/MicrosoftDocs/azure-docs/blob/main/articles/virtual-machines/extensions/azure-disk-enc-linux.md
 
 ### Encryption at Host
 

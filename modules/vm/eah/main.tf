@@ -1,5 +1,5 @@
 locals {
-  encrypt_type = "cmk"
+  encrypt_type = "ade"
 }
 
 resource "azurerm_public_ip" "default" {
@@ -31,14 +31,16 @@ locals {
 }
 
 resource "azurerm_linux_virtual_machine" "default" {
-  name                       = "vm-${var.workload}-${local.encrypt_type}"
-  resource_group_name        = var.resource_group_name
-  location                   = var.location
-  size                       = var.size
-  admin_username             = local.username
-  admin_password             = "P@ssw0rd.123"
-  network_interface_ids      = [azurerm_network_interface.default.id]
-  encryption_at_host_enabled = false
+  name                  = "vm-${var.workload}-${local.encrypt_type}"
+  resource_group_name   = var.resource_group_name
+  location              = var.location
+  size                  = var.size
+  admin_username        = local.username
+  admin_password        = "P@ssw0rd.123"
+  network_interface_ids = [azurerm_network_interface.default.id]
+
+  # Enable encryption at host
+  encryption_at_host_enabled = true
 
   custom_data = filebase64("${path.module}/cloud-init.sh")
 
@@ -55,9 +57,6 @@ resource "azurerm_linux_virtual_machine" "default" {
     name                 = "osdisk-linux-${var.workload}-${local.encrypt_type}"
     caching              = "ReadOnly"
     storage_account_type = "StandardSSD_LRS"
-
-    # Azure Disk Encryption (ADE)
-    disk_encryption_set_id = var.disk_encryption_set_id
   }
 
   source_image_reference {

@@ -17,7 +17,3 @@ variable "subnet_id" {
 variable "size" {
   type = string
 }
-
-variable "disk_encryption_set_id" {
-  type = string
-}

@@ -6,7 +6,3 @@ variable "location" {
 variable "vm_size" {
   type = string
 }
-
-variable "encryption_at_host_enabled" {
-  type = bool
-}

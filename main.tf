@@ -31,12 +31,20 @@ module "keyvault" {
 }
 
 module "vm_cmk" {
-  source                     = "./modules/vm/cmk"
-  workload                   = local.workload
-  resource_group_name        = azurerm_resource_group.default.name
-  location                   = azurerm_resource_group.default.location
-  subnet_id                  = module.vnet.subnet_id
-  size                       = var.vm_size
-  disk_encryption_set_id     = module.keyvault.disk_encryption_set_id
-  encryption_at_host_enabled = var.encryption_at_host_enabled
+  source                 = "./modules/vm/cmk"
+  workload               = local.workload
+  resource_group_name    = azurerm_resource_group.default.name
+  location               = azurerm_resource_group.default.location
+  subnet_id              = module.vnet.subnet_id
+  size                   = var.vm_size
+  disk_encryption_set_id = module.keyvault.disk_encryption_set_id
+}
+
+module "vm_eah" {
+  source              = "./modules/vm/eah"
+  workload            = local.workload
+  resource_group_name = azurerm_resource_group.default.name
+  location            = azurerm_resource_group.default.location
+  subnet_id           = module.vnet.subnet_id
+  size                = var.vm_size
 }

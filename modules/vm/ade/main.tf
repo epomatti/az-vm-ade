@@ -1,5 +1,5 @@
 locals {
-  encrypt_type = "cmk"
+  encrypt_type = "ade"
 }
 
 resource "azurerm_public_ip" "default" {
@@ -55,9 +55,6 @@ resource "azurerm_linux_virtual_machine" "default" {
     name                 = "osdisk-linux-${var.workload}-${local.encrypt_type}"
     caching              = "ReadOnly"
     storage_account_type = "StandardSSD_LRS"
-
-    # Azure Disk Encryption (ADE)
-    disk_encryption_set_id = var.disk_encryption_set_id
   }
 
   source_image_reference {
