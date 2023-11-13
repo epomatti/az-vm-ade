@@ -37,6 +37,11 @@ Underlying encryption technology:
 - Windows: BitLocker
 - Linux: DM-Crypt + VFAT
 
+Other restrictions:
+- Basic and A-Series VMS are not supported
+- Memory requirements (check docs for Windows and Linux)
+- Does not currently support ephemeral disks
+
 ### Encryption at Host
 
 Encryption at Host is [not supported][3] with ADE and has other restrictions. Check this for production.
